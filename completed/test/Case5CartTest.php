@@ -1,7 +1,7 @@
 <?php
 namespace Acme\Shop;
 
-class Case5CartTest extends \PHPUnit_Framework_TestCase
+class Case3CartTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
@@ -31,4 +31,15 @@ class Case5CartTest extends \PHPUnit_Framework_TestCase
         );
     }
 }
+
+
+
+
+
+
+
+
+
+
+
 

@@ -4,21 +4,25 @@ namespace Acme\Shop;
 class Case2CartTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @test
+     * @var Cart
      */
-    public function 商品小計に消費税を加算()
+    private $cart;
+
+    public function setUp()
     {
-        $cart = new Cart();
+        $this->cart = new Cart();
+        $this->cart->addItem(new Item('code1', 100));
+        $this->cart->addItem(new Item('code2', 200));
+        $this->cart->addItem(new Item('code3', 300));
+    }
 
-        $item1 = new Item('code1', 100);
-        $item1->price = (int)($item1->price * 1.08);
-        $cart->addItem($item1);
-
-        $item2 = new Item('code2', 200);
-        $item2->price = (int)($item2->price * 1.09);
-        $cart->addItem($item2);
-
-        $this->assertEquals(324, $cart->calculateTotalPrice());
+    /**
+     * @test
+     * @expectedException \Acme\Shop\PreconditionException
+     */
+    public function 商品を4個入れると例外()
+    {
+        $this->cart->addItem(new Item('code4', 400));
     }
 }
 

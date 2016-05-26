@@ -8,7 +8,7 @@ class Cart implements Arrayable
     /**
      * @var Item[]
      */
-    private $items;
+    protected $items;
 
     public function __construct()
     {
@@ -17,6 +17,10 @@ class Cart implements Arrayable
 
     public function addItem(Item $item)
     {
+        if (count($this->items) >= 3) {
+            throw new PreconditionException();
+        }
+
         $this->items[] = $item;
     }
 
@@ -31,7 +35,7 @@ class Cart implements Arrayable
 
         return $totalPrice;
     }
-
+    
     public function toArray(): array
     {
         return array_map(function (Item $item) {

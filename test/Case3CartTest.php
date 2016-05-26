@@ -5,32 +5,40 @@ class Case3CartTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
-     * @outputBuffering
-     * @runInSeparateProcess
      */
-    public function 商品をJSONで出力()
+    public function 商品小計に消費税を加算()
     {
-        $controller = new ApiController();
-        $controller->item();
+        $cart = new Cart();
 
-        $this->expectOutputString('{"code":"code1","price":100}');
-    }
+        $item1 = new Item('code1', 100);
+        $item1->price = (int)($item1->price * 1.08);
+        $cart->addItem($item1);
 
-    /**
-     * @test
-     * @outputBuffering
-     * @runInSeparateProcess
-     */
-    public function カートをJSONで出力()
-    {
-        $controller = new ApiController();
-        $controller->cart();
+        $item2 = new Item('code2', 200);
+        $item2->price = (int)($item2->price * 1.09);
+        $cart->addItem($item2);
 
-        $this->expectOutputString(
-            '[{"code":"code1","price":100},{"code":"code2","price":200}]'
-        );
+        $this->assertEquals(324, $cart->calculateTotalPrice());
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
